@@ -5,9 +5,14 @@ namespace TextFileUI
     class Program
     {
         private static IConfiguration _config;
+        private static string textFile;
+
 
         static void Msin(string[] args)
         {
+            InitializeConfiguration();
+            textFile = _config.GetValue<string>("TextFile");
+
 
 
             Console.ReadLine();
