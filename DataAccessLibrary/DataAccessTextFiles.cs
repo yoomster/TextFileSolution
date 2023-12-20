@@ -11,7 +11,28 @@ namespace DataAccessLibrary
     {
         public List<ContactModel> ReadAllRecords(string TextFile)
         {
+            var lines = File.ReadAllLines(TextFile);
+            List<ContactModel> output = new();
 
+            foreach (var line in lines)
+            {
+                ContactModel contact = new ContactModel();
+                var vals = line.Split(',');
+
+                if(vals.Length < 4)
+                {
+                    throw new Exception($"Invalid row of data: {line}");
+                }
+
+                contact.FirstName = vals[0];
+                contact.LastName = vals[1];
+                contact.EmailAddresses = vals[2].Split(';').ToList();
+                contact.PhoneNumbers = vals[3].Split(';').ToList();
+
+                output.Add(contact);
+            }
+
+            return output; 
         }
 
         public void WriteAllRecords(List<ContactModel> contacts, string TextFile)
