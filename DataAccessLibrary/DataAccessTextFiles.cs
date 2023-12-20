@@ -47,6 +47,5 @@ namespace DataAccessLibrary
             File.WriteAllLines(TextFile, lines);
         }
 
-
     }
 }
