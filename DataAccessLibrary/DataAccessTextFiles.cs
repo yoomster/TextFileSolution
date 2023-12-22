@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,11 @@ namespace DataAccessLibrary
     {
         public List<ContactModel> ReadAllRecords(string TextFile)
         {
+            if (File.Exists(TextFile) == false)
+            {
+                return new List<ContactModel>();
+            }
+
             var lines = File.ReadAllLines(TextFile);
             List<ContactModel> output = new();
 

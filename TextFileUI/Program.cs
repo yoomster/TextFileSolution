@@ -1,4 +1,5 @@
-﻿using DataAccessLibrary;
+﻿
+using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
 
@@ -18,8 +19,8 @@ namespace TextFileUI
 
             ContactModel user1 = new ContactModel
             {
-                FirstName="Naomi",
-                LastName="Perenboom",
+                FirstName = "Naomi",
+                LastName = "Perenboom",
             };
             user1.EmailAddresses.Add("naomi@live.nl");
             user1.EmailAddresses.Add("perenboom@live.nl");
@@ -36,19 +37,27 @@ namespace TextFileUI
             user2.PhoneNumbers.Add("0612345678");
             user2.PhoneNumbers.Add("0687654333");
 
-            List<ContactModel> contacts = new List<ContactModel>
-            {
-                user1,
-                user2
-            };
+            CreateContact(user1);
+            CreateContact(user2);
 
             GetallContacts();
 
-            UpdateFirstName("Yoom");
+            Console.WriteLine("done processing text file");
+
+            //UpdateFirstName("Yoom");
 
 
             Console.ReadLine();
         }
+
+        private static void RemoveUser(string id)
+        {
+            var contacts = db.ReadAllRecords(textFile);
+            contacts.RemoveAt(0);
+            db.WriteAllRecords(contacts, textFile);
+        }
+
+
 
         private static void UpdateFirstName(string firstName)
         {
@@ -89,6 +98,5 @@ namespace TextFileUI
             _config = builder.Build();
 
         }
-
     }
 }
