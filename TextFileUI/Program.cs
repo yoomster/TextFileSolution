@@ -57,9 +57,15 @@ namespace TextFileUI
             db.WriteAllRecords(contacts, textFile);
         }
 
+        private static void RemovePhoneNumberFromUser(string phoneNumber)
+        {
+            var contacts = db.ReadAllRecords(textFile);
+            contacts[0].FirstName = phoneNumber;
 
+            db.WriteAllRecords(contacts, textFile);
+        }
 
-        private static void UpdateFirstName(string firstName)
+    private static void UpdateFirstName(string firstName)
         {
             var contacts = db.ReadAllRecords(textFile);
 
