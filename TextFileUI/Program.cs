@@ -8,7 +8,7 @@ namespace TextFileUI
     {
         private static IConfiguration _config;
         private static string textFile;
-        private static DataAccessTextFiles _db = new DataAccessTextFiles();
+        private static DataAccessTextFiles db = new DataAccessTextFiles();
 
 
         static void Msin(string[] args)
@@ -44,6 +44,25 @@ namespace TextFileUI
 
 
             Console.ReadLine();
+        }
+
+
+        private static void GetallContacts()
+        {
+            var contacts = db.ReadAllRecords(textFile);
+
+            foreach (var contact in contacts)
+            {
+                Console.WriteLine($"{contact.FirstName} {contact.LastName}");
+            }
+        }
+
+        private static void CreateContact(ContactModel contact)
+        {
+            var contacts = db.ReadAllRecords(textFile);
+            contacts.Add(contact);
+
+            db.WriteAllRecords(contacts, textFile);
         }
         private static void InitializeConfiguration()
         {
