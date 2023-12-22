@@ -11,7 +11,7 @@ namespace TextFileUI
         private static DataAccessTextFiles db = new DataAccessTextFiles();
 
 
-        static void Msin(string[] args)
+        static void Main(string[] args)
         {
             InitializeConfiguration();
             textFile = _config.GetValue<string>("TextFile");
@@ -42,11 +42,26 @@ namespace TextFileUI
                 user2
             };
 
+            GetallContacts();
+
+            UpdateFirstName("Yoom");
+
 
             Console.ReadLine();
         }
 
+        private static void UpdateFirstName(string firstName)
+        {
+            var contacts = db.ReadAllRecords(textFile);
 
+            Console.Write("Type nr of person you want to change firstname of:");
+            string nrText = Console.ReadLine();
+            bool isValidNr = int.TryParse(nrText, out int nr);
+
+            contacts[nr].FirstName = firstName;
+
+            db.WriteAllRecords(contacts, textFile);
+        }
         private static void GetallContacts()
         {
             var contacts = db.ReadAllRecords(textFile);
@@ -64,6 +79,7 @@ namespace TextFileUI
 
             db.WriteAllRecords(contacts, textFile);
         }
+
         private static void InitializeConfiguration()
         {
             var builder = new ConfigurationBuilder()
