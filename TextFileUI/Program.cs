@@ -60,7 +60,7 @@ namespace TextFileUI
         private static void RemovePhoneNumberFromUser(string phoneNumber)
         {
             var contacts = db.ReadAllRecords(textFile);
-            contacts[0].FirstName = phoneNumber;
+            contacts[0].PhoneNumbers.Remove(phoneNumber);
 
             db.WriteAllRecords(contacts, textFile);
         }
